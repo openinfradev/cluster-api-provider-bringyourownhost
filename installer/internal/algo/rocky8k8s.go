@@ -96,7 +96,7 @@ fi
 
 echo "downloading bundle"
 mkdir -p $BUNDLE_PATH
-/usr/local/bin/imgpkg pull -r -i $BUNDLE_ADDR -o $BUNDLE_PATH
+/usr/local/bin/imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
 
 
 ## disable swap
