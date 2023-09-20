@@ -103,8 +103,8 @@ mkdir -p $BUNDLE_PATH
 sudo swapoff -a && sudo sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 
 ## diable selinux
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo setenforce 0 || true
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config 
 
 # disable firewall
 echo "Stopping and disabling Firewalld."
@@ -112,7 +112,7 @@ sudo systemctl stop firewalld || true
 sudo systemctl disable firewalld || true
 
 ## load kernal modules
-sudo modprobe overlay && sudo modprobe br_netfilter
+sudo modprobe overlay && sudo modprobe br_netfilter || true
 
 ## adding os configuration
 tar -C /etc/sysctl.d -xvf "$BUNDLE_PATH/conf.tar" && sudo sysctl --system 
@@ -167,11 +167,11 @@ sudo systemctl start firewalld || true
 sudo systemctl enable firewalld || true
 
 ## enable selinux
-sudo setenforce 1
+sudo setenforce 1 || true
 sudo sed -i 's/^SELINUX=permissive$/SELINUX=enforcing/' /etc/selinux/config
 
 ## enable swap
-sudo swapon -a && sed -ri '/\sswap\s/s/^#?//' /etc/fstab
+sudo swapon -a || true && sed -ri '/\sswap\s/s/^#?//' /etc/fstab
 
-rm -rf $BUNDLE_PATH`
+rm -rf $BUNDLE_PATH || true`
 )
