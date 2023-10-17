@@ -40,11 +40,11 @@ func NewRocky8Installer(ctx context.Context, arch, bundleAddrs string) (*Rocky8I
 		return tpl.String(), nil
 	}
 
-	install, err := parseFn(DoRocky8K8s1_22)
+	install, err := parseFn(DoRocky8K8s1_2x)
 	if err != nil {
 		return nil, err
 	}
-	uninstall, err := parseFn(UndoRocky8K8s1_22)
+	uninstall, err := parseFn(UndoRocky8K8s1_2x)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (s *Rocky8Installer) Uninstall() string {
 
 // contains the installation and uninstallation steps for the supported os and k8s
 var (
-	DoRocky8K8s1_22 = `
+	DoRocky8K8s1_2x = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
@@ -137,7 +137,7 @@ sudo systemctl daemon-reload && systemctl enable kubelet && systemctl start kube
 ## starting containerd service
 sudo systemctl daemon-reload && systemctl enable containerd && systemctl start containerd`
 
-	UndoRocky8K8s1_22 = `
+	UndoRocky8K8s1_2x = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
@@ -150,7 +150,7 @@ sudo systemctl stop containerd && systemctl disable containerd && systemctl daem
 ## removing containerd configurations and cni plugins
 sudo rm -rf /opt/cni/ && sudo rm -rf /opt/containerd/ &&  tar tf "$BUNDLE_PATH/containerd.tar" | xargs -n 1 echo '/' | sed 's/ //g'  | grep -e '[^/]$' | xargs rm -f
 
-## removing deb packages
+## removing rpm packages
 for pkg in kubeadm kubelet kubectl kubernetes-cni cri-tools; do
 	sudo yum remove $pkg -y
 done
