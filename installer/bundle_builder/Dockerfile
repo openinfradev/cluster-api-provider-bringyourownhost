@@ -16,7 +16,12 @@
 # // Build and store a BYOH bundle
 # docker run --rm -v <INGREDIENTS_HOST_ABS_PATH>:/ingredients  -v <BUNDLE_OUTPUT_ABS_PATH>:/bundle --env <THIS_IMAGE>
 
-FROM k14s/image
+# https://github.com/carvel-dev/docker-image/blob/develop/Dockerfile
+FROM ubuntu
+# perl is needed for shasum
+RUN apt-get -y update && apt-get install -y wget perl ca-certificates && update-ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN bash -c "set -eo pipefail; wget -O- https://carvel.dev/install.sh | bash"
+RUN ytt version && kapp version && kbld version && kwt version && imgpkg version && vendir version
 
 # If set to 1 bundle is built and available as bundle/bundle.tar
 # If set to 0 bundle is build and pushed to repo
@@ -32,4 +37,4 @@ RUN mkdir /ingredients && mkdir /bundle
 ENV PATH="/bundle-builder:${PATH}"
 
 WORKDIR /tmp/bundle
-ENTRYPOINT ["build-push-bundle.sh", "/ingredients", "/config"]
+ENTRYPOINT ["build-push-bundle.sh", "/ingredients", "/config", "rpm"]

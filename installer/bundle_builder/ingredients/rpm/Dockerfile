@@ -8,12 +8,12 @@
 # 2. Run the image
 #
 
-ARG BASE_IMAGE=rockylinux:8.7
+ARG BASE_IMAGE=rockylinux:8
 FROM $BASE_IMAGE as build
 
 # Override to download other version
-ENV CONTAINERD_VERSION=1.6.18
-ENV KUBERNETES_VERSION=1.25.11-0
+ENV CONTAINERD_VERSION=1.6.31
+ENV KUBERNETES_VERSION=1.28
 ENV ARCH=x86_64
 
 RUN dnf -y install sudo
