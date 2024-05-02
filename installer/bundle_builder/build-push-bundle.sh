@@ -6,8 +6,6 @@
 set -e
 
 build-bundle.sh $1 $2 $3
-if [ $BUILD_ONLY -eq 0 ]
-then
-push-bundle.sh ${@:4}
+if [ $BUILD_ONLY -eq 0 ]; then
+	push-bundle.sh ${@:4}
 fi
-
