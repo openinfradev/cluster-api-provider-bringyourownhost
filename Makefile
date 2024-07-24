@@ -6,7 +6,7 @@ SHELL:=/usr/bin/env bash
 STAGING_REGISTRY ?= harbor.taco-cat.xyz/cluster_api_provider_bringyourownhost
 
 IMAGE_NAME ?= cluster-api-byoh-controller
-TAG ?= v0.0.1
+TAG ?= v0.5.0-tks-20240724
 RELEASE_DIR := _dist
 
 # Image URL to use all building/pushing image targets

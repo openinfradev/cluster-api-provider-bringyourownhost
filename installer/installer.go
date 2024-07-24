@@ -74,6 +74,9 @@ func NewInstaller(ctx context.Context, osDist, arch, k8sVersion string, download
 	if strings.HasPrefix(osArch, "Rocky_Linux_8") {
 		return algo.NewRocky8Installer(ctx, arch, addrs)
 	}
-
+	// if osArch start with Red_Hat_Enterprise_Linux_8, then use Rocky_Linux_8 installer
+	if strings.HasPrefix(osArch, "Red_Hat_Enterprise_Linux_8") {
+		return algo.NewRocky8Installer(ctx, arch, addrs)
+	}
 	return nil, ErrOsK8sNotSupported
 }

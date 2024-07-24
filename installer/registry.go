@@ -8,20 +8,24 @@ import (
 	"regexp"
 )
 
-type osk8sInstaller interface{}
-type k8sInstallerMap map[string]osk8sInstaller
-type osk8sInstallerMap map[string]k8sInstallerMap
-type filterOsBundlePair struct {
-	osFilter string
-	osBundle string
-}
+type (
+	osk8sInstaller     interface{}
+	k8sInstallerMap    map[string]osk8sInstaller
+	osk8sInstallerMap  map[string]k8sInstallerMap
+	filterOsBundlePair struct {
+		osFilter string
+		osBundle string
+	}
+)
 
 type filterK8sBundle struct {
 	k8sFilter string
 }
 
-type filterOSBundleList []filterOsBundlePair
-type filterK8sBundleList []filterK8sBundle
+type (
+	filterOSBundleList  []filterOsBundlePair
+	filterK8sBundleList []filterK8sBundle
+)
 
 // Registry contains
 // 1. Entries associating BYOH Bundle i.e. (OS,K8sVersion) in the Repository with Installer in Host Agent
@@ -118,6 +122,10 @@ func GetSupportedRegistry() registry {
 		reg.AddBundleInstaller(linuxDistro, "v1.24.*")
 		reg.AddBundleInstaller(linuxDistro, "v1.25.*")
 		reg.AddBundleInstaller(linuxDistro, "v1.26.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.27.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.28.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.29.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.30.*")
 
 		/*
 		 * PLACEHOLDER - ADD MORE K8S VERSIONS HERE
@@ -127,6 +135,10 @@ func GetSupportedRegistry() registry {
 		reg.AddK8sFilter("v1.24.*")
 		reg.AddK8sFilter("v1.25.*")
 		reg.AddK8sFilter("v1.26.*")
+		reg.AddK8sFilter("v1.27.*")
+		reg.AddK8sFilter("v1.28.*")
+		reg.AddK8sFilter("v1.29.*")
+		reg.AddK8sFilter("v1.30.*")
 
 		// Match concrete os version to repository os version
 		reg.AddOsFilter("Ubuntu_20.04.*_x86-64", linuxDistro)
@@ -143,6 +155,10 @@ func GetSupportedRegistry() registry {
 		linuxDistro := "Rocky_Linux_8_x86-64"
 		reg.AddBundleInstaller(linuxDistro, "v1.25.*")
 		reg.AddBundleInstaller(linuxDistro, "v1.26.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.27.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.28.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.29.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.30.*")
 
 		/*
 		 * PLACEHOLDER - ADD MORE K8S VERSIONS HERE
@@ -151,6 +167,10 @@ func GetSupportedRegistry() registry {
 		// Match any patch version of the specified Major & Minor K8s version
 		reg.AddK8sFilter("v1.25.*")
 		reg.AddK8sFilter("v1.26.*")
+		reg.AddK8sFilter("v1.27.*")
+		reg.AddK8sFilter("v1.28.*")
+		reg.AddK8sFilter("v1.29.*")
+		reg.AddK8sFilter("v1.30.*")
 
 		// Match concrete os version to repository os version
 		reg.AddOsFilter("Rocky_Linux_8.*_x86-64", linuxDistro)
@@ -160,6 +180,33 @@ func GetSupportedRegistry() registry {
 		 */
 	}
 
+	{
+		// RHEL 8
+
+		// BYOH Bundle Repository. Associate bundle with installer
+		linuxDistro := "Red_Hat_Enterprise_Linux_8_x86-64"
+		reg.AddBundleInstaller(linuxDistro, "v1.27.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.28.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.29.*")
+		reg.AddBundleInstaller(linuxDistro, "v1.30.*")
+
+		/*
+		 * PLACEHOLDER - ADD MORE K8S VERSIONS HERE
+		 */
+
+		// Match any patch version of the specified Major & Minor K8s version
+		reg.AddK8sFilter("v1.27.*")
+		reg.AddK8sFilter("v1.28.*")
+		reg.AddK8sFilter("v1.29.*")
+		reg.AddK8sFilter("v1.30.*")
+
+		// Match concrete os version to repository os version
+		reg.AddOsFilter("Red_Hat_Enterprise_Linux_8.*_x86-64", linuxDistro)
+
+		/*
+		 * PLACEHOLDER - POINT MORE DISTRO VERSIONS
+		 */
+	}
 	/*
 	 * PLACEHOLDER - ADD MORE OS HERE
 	 */
